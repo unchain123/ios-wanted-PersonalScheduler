@@ -8,10 +8,24 @@
 import UIKit
 import FirebaseCore
 import FirebaseFirestore
+import KakaoSDKAuth
+import KakaoSDKCommon
+import FacebookCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        //MARK: KAKAO
+        let nativeAppKey = Bundle.main.infoDictionary?["KAKAO_NATIVE_APP_KEY"] ?? ""
+        KakaoSDK.initSDK(appKey: nativeAppKey as? String ?? "")
+
+        //MARK: FaceBook
+        ApplicationDelegate.shared.application(
+            application,
+            didFinishLaunchingWithOptions: launchOptions
+        )
+
+        //MARK: Firebase
         FirebaseApp.configure()
         return true
     }
